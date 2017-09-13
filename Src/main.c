@@ -103,7 +103,9 @@ int main(void)
 	  RDA5807m_Init();
 		//RDA5807m_SetFreq(97.3);
 	  HAL_Delay(1000);
-		HAL_I2C_Master_Transmit(&hi2c1,(0x10 << 1),(void *)&RDA5807m_I2C_Buff,sizeof(RDA5807m_I2C_Buff),10);
+		//HAL_I2C_Master_Transmit(&hi2c1,(0x10 << 1),(void *)&RDA5807m_I2C_Buff,sizeof(RDA5807m_I2C_Buff),10);
+		
+		RDA5807m_SetFreq(93.7);
 		
 		//RDA5807m_Seek();
 		//HAL_I2C_Master_Transmit(&hi2c1,(0x10 << 1),(void *)&RDA5807m_I2C_Buff,2,10);

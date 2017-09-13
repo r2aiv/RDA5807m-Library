@@ -37,9 +37,9 @@ RDA9807m.H - register definition for RDA9807m
 //#endif
 
 #define BAND_87_108	0x00
-#define BAND_76_91	0x0A
-#define BAND_76_108	0x0B
-#define BAND_65_76	0x0C
+#define BAND_76_91	0x04
+#define BAND_76_108	0x08
+#define BAND_65_76	0x0B
 
 #define STEP_100	0x00
 #define STEP_200	0x01
@@ -48,7 +48,7 @@ RDA9807m.H - register definition for RDA9807m
 
 
 
-void SwapBytes(uint16_t *Data);
+void SwapBytes(uint16_t *Dst,uint16_t *Src);
 void RDA5807m_Reset(void);
 void RDA5807m_Send(void);
 void RDA5807m_Init(void);

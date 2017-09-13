@@ -30,3 +30,4 @@ rda5807\rda5807m.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
 rda5807\rda5807m.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 rda5807\rda5807m.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 rda5807\rda5807m.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+rda5807\rda5807m.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
