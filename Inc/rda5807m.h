@@ -26,7 +26,6 @@ RDA9807m.H - register definition for RDA9807m
 #define CTRL_DEFAULT (CTRL_DHIZ | CTRL_DMUTE | CTRL_BASS | CTRL_ENABLE)
 #define CHAN_DEFAULT (CHAN_STEP & STEP_100) | (CHAN_BAND & BAND_76_108)
 
-
 // CHAN_REG (0x03)
 
 #define		CHAN_STEP	0x0003
@@ -34,10 +33,6 @@ RDA9807m.H - register definition for RDA9807m
 #define		CHAN_TUNE	0x0010
 #define		CHAN_DIR_MODE	0x0020
 #define		CHAN_CHAN	0xFFC0
-
-//#ifndef uint16_t
-//#define uint16_t int
-//#endif
 
 #define BAND_87_108	0x00
 #define BAND_76_91	0x04
@@ -49,8 +44,6 @@ RDA9807m.H - register definition for RDA9807m
 #define STEP_50		0x02
 #define STEP_25		0x03
 
-
-
 void SwapBytes(uint16_t *Dst,uint16_t *Src);
 void RDA5807m_Reset(void);
 void RDA5807m_Send(void);
@@ -59,3 +52,6 @@ void RDA5807m_SetFreq(float Freq);
 void RDA5807m_Seek(void);
 void RDA5807m_SetBand(unsigned char Band);
 void RDA5807m_SetStep(unsigned char Step);
+
+uint16_t GetChan(); //Reads CHAN[9:0] from register 0x0A
+uint16_t GetRSSI(); //Reads RSSI[6:0] from register 0x0B
