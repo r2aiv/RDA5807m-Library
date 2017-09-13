@@ -101,17 +101,20 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	
 	  RDA5807m_Init();
-		//RDA5807m_SetFreq(97.3);
-	  HAL_Delay(1000);
-		//HAL_I2C_Master_Transmit(&hi2c1,(0x10 << 1),(void *)&RDA5807m_I2C_Buff,sizeof(RDA5807m_I2C_Buff),10);
+		HAL_Delay(1000);
 		
-		//RDA5807m_SetFreq(89.4);
-		RDA5807m_SetBand(BAND_65_76);
-		RDA5807m_SetStep(STEP_50);
-		RDA5807m_SetFreq(66.44);
+		RDA5807m_SetBand(BAND_76_108);
+		RDA5807m_SetStep(STEP_25);
+		RDA5807m_SetFreq(97.6);						
+		
+//		for(int i=0;i<=10;i++)
+//			{
+//				RDA5807m_Seek();
+//				HAL_Delay(5000);
+//			}
 		
 		//RDA5807m_Seek();
-		//HAL_I2C_Master_Transmit(&hi2c1,(0x10 << 1),(void *)&RDA5807m_I2C_Buff,2,10);
+		
   /* USER CODE END 2 */
 
   /* Infinite loop */

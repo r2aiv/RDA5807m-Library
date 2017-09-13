@@ -6,6 +6,10 @@ RDA9807m.H - register definition for RDA9807m
 
 #include "stm32f4xx.h"
 
+// I2C_HANDLER - адрес хендлера i2c
+
+#define I2C_HANDLER &hi2c1
+
 // CTRL_REG (0x02) - transmitted first
 
 #define 	CTRL_ENABLE	0x0001

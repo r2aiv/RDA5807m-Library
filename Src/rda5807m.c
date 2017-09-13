@@ -7,6 +7,8 @@ uint16_t RDA5807m_CHAN_REG=0x0000;
 
 uint16_t RDA5807m_I2C_Buff[2];
 
+extern I2C_HandleTypeDef hi2c1;
+
 void RDA5807m_Reset()
 {
 		RDA5807m_CTRL_REG=0x00;
@@ -26,7 +28,8 @@ void RDA5807m_Init()
 void RDA5807m_Seek()
 {
 	RDA5807m_CTRL_REG |= 0x0000;
-	RDA5807m_CTRL_REG |= (CTRL_DEFAULT | CTRL_SEEK | CTRL_SEEKUP);
+	RDA5807m_CHAN_REG &=	 ~0xFFF0; // Не трогаем диапазон и шаг, остальное стираем
+	RDA5807m_CTRL_REG |= (CTRL_DEFAULT | CTRL_SEEK | CTRL_SEEKUP);	
 	RDA5807m_Send();
 }
 
@@ -34,7 +37,7 @@ void RDA5807m_SetBand(unsigned char Band)
 {
 	RDA5807m_CTRL_REG = 0x0000;
 	RDA5807m_CTRL_REG |= CTRL_DEFAULT;
-	RDA5807m_CHAN_REG &= ~0x00C0;
+	RDA5807m_CHAN_REG &= ~0x000C;
 	RDA5807m_CHAN_REG |= Band;
 	RDA5807m_Send();		
 }
@@ -103,8 +106,10 @@ void RDA5807m_SetFreq(float Freq)
 void RDA5807m_Send()
 {
 		SwapBytes(&RDA5807m_I2C_Buff[0],&RDA5807m_CTRL_REG);
-	  SwapBytes(&RDA5807m_I2C_Buff[1],&RDA5807m_CHAN_REG);    	
-	  // TODO: i2c transmiting registers 
+	  SwapBytes(&RDA5807m_I2C_Buff[1],&RDA5807m_CHAN_REG);   
+		HAL_I2C_Master_Transmit(I2C_HANDLER,(0x10 << 1),(void *)&RDA5807m_I2C_Buff,sizeof(RDA5807m_I2C_Buff),10);
+		HAL_Delay(100);
+	  // TODO: Заменить на дефайны (I2C и т.п.)
 }
 
 void SwapBytes(uint16_t *Dst,uint16_t *Src) // Src is ABCD, Dst is CDAB
