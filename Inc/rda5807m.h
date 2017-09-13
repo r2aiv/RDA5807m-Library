@@ -23,6 +23,9 @@ RDA9807m.H - register definition for RDA9807m
 #define		CTRL_DMUTE	0x4000
 #define		CTRL_DHIZ	0x8000
 
+#define CTRL_DEFAULT (CTRL_DHIZ | CTRL_DMUTE | CTRL_BASS | CTRL_ENABLE)
+#define CHAN_DEFAULT (CHAN_STEP & STEP_100) | (CHAN_BAND & BAND_76_108)
+
 
 // CHAN_REG (0x03)
 
@@ -39,7 +42,7 @@ RDA9807m.H - register definition for RDA9807m
 #define BAND_87_108	0x00
 #define BAND_76_91	0x04
 #define BAND_76_108	0x08
-#define BAND_65_76	0x0B
+#define BAND_65_76	0x0C
 
 #define STEP_100	0x00
 #define STEP_200	0x01

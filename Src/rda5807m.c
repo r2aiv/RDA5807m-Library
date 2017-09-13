@@ -17,16 +17,35 @@ void RDA5807m_Reset()
 
 void RDA5807m_Init()
 {
-		RDA5807m_CTRL_REG |= (CTRL_DHIZ | CTRL_DMUTE | CTRL_BASS | CTRL_ENABLE | CTRL_SEEK);
-    RDA5807m_CHAN_REG |= (CHAN_STEP & STEP_100) | (CHAN_BAND & BAND_76_108) | CHAN_TUNE;	
-		RDA5807m_CHAN_REG |= (208 << 6); // Дает настройку на Детское Радио
+		RDA5807m_CTRL_REG |= CTRL_DEFAULT;
+    RDA5807m_CHAN_REG |= CHAN_DEFAULT; // Запихнуть в макрос CHAN_DEFAULT	
+		RDA5807m_CHAN_REG |= (208 << 6) | CHAN_TUNE;														 // Дает настройку на Детское Радио
 	  RDA5807m_Send();       
 }
 
 void RDA5807m_Seek()
 {
-	RDA5807m_CTRL_REG |= (CTRL_SEEK | CTRL_SEEKUP);
+	RDA5807m_CTRL_REG |= 0x0000;
+	RDA5807m_CTRL_REG |= (CTRL_DEFAULT | CTRL_SEEK | CTRL_SEEKUP);
 	RDA5807m_Send();
+}
+
+void RDA5807m_SetBand(unsigned char Band)
+{
+	RDA5807m_CTRL_REG = 0x0000;
+	RDA5807m_CTRL_REG |= CTRL_DEFAULT;
+	RDA5807m_CHAN_REG &= ~0x00C0;
+	RDA5807m_CHAN_REG |= Band;
+	RDA5807m_Send();		
+}
+
+void RDA5807m_SetStep(unsigned char Step)
+{
+	RDA5807m_CTRL_REG = 0x0000;
+	RDA5807m_CTRL_REG |= CTRL_DEFAULT;
+	RDA5807m_CHAN_REG &= ~0x0003;
+	RDA5807m_CHAN_REG |= Step;
+	RDA5807m_Send();		
 }
 
 void RDA5807m_SetFreq(float Freq)
@@ -75,7 +94,7 @@ void RDA5807m_SetFreq(float Freq)
 	}
 	
 	RDA5807m_CTRL_REG = 0x0000;
-	RDA5807m_CTRL_REG |= (CTRL_DHIZ | CTRL_DMUTE | CTRL_BASS | CTRL_ENABLE);
+	RDA5807m_CTRL_REG |= CTRL_DEFAULT;
 	RDA5807m_CHAN_REG &= ~0xFFC0;
 	RDA5807m_CHAN_REG |= (FreqVal << 6) | CHAN_TUNE;
 	RDA5807m_Send();	
