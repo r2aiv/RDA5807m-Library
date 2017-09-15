@@ -59,3 +59,5 @@ void RDA5807m_SetStep(unsigned char Step);
 
 uint16_t RDA5807m_GetChan(void); //Reads CHAN[9:0] from register 0x0A
 uint16_t RDA5807m_GetRSSI(void); //Reads RSSI[6:0] from register 0x0B
+float RDA5807m_GetFreq(void);  	 //Converts CHAN, BAND and STEP to frequency
+
