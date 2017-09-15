@@ -139,7 +139,7 @@ uint16_t RDA5807m_GetRSSI()
 	uint16_t RSSI;
 	memset(RDA5807m_I2C_Buff,0,sizeof(RDA5807m_I2C_Buff));
 	HAL_I2C_Master_Receive(I2C_HANDLER,(0x10 << 1),(void *)&RDA5807m_I2C_Buff, sizeof(RDA5807m_I2C_Buff),10);
-	SwapBytes(&RDA5807m_I2C_Buff[0],&RDA5807m_I2C_Buff[0]);
+	SwapBytes(&RDA5807m_I2C_Buff[1],&RDA5807m_I2C_Buff[1]);
 	RSSI=(RDA5807m_I2C_Buff[1] & 0x7F00) >> 9;
 	return RSSI;
 }
