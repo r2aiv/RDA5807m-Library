@@ -57,5 +57,5 @@ void RDA5807m_Seek(void);
 void RDA5807m_SetBand(unsigned char Band);
 void RDA5807m_SetStep(unsigned char Step);
 
-uint16_t GetChan(); //Reads CHAN[9:0] from register 0x0A
-uint16_t GetRSSI(); //Reads RSSI[6:0] from register 0x0B
+uint16_t RDA5807m_GetChan(void); //Reads CHAN[9:0] from register 0x0A
+uint16_t RDA5807m_GetRSSI(void); //Reads RSSI[6:0] from register 0x0B

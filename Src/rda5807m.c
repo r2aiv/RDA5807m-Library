@@ -1,5 +1,6 @@
 #include "rda5807m.h"
 #include <stdio.h>
+#include <string.h>
 #include <math.h>
 
 uint16_t RDA5807m_CTRL_REG=0x0000;
@@ -54,7 +55,7 @@ void RDA5807m_SetStep(unsigned char Step)
 void RDA5807m_SetFreq(float Freq)
 {
 	uint16_t FreqVal=0;
-	uint8_t Band=RDA5807m_CHAN_REG & CHAN_BAND;
+	
 	float Step=0;
 	
 	switch(RDA5807m_CHAN_REG & CHAN_STEP)
@@ -118,4 +119,27 @@ void SwapBytes(uint16_t *Dst,uint16_t *Src) // Src is ABCD, Dst is CDAB
 	temp=((*Src & 0x00FF) << 8);
 	temp+=((*Src & 0xFF00) >> 8);
 	*Dst=temp;	
+}
+
+
+uint16_t RDA5807m_GetChan()
+{
+	uint16_t Chan;
+	memset(RDA5807m_I2C_Buff,0,sizeof(RDA5807m_I2C_Buff));
+	HAL_I2C_Master_Receive(I2C_HANDLER,(0x10 << 1),(void *)&RDA5807m_I2C_Buff, sizeof(RDA5807m_I2C_Buff),10);	
+	SwapBytes(&RDA5807m_I2C_Buff[0],&RDA5807m_I2C_Buff[0]);
+	Chan=RDA5807m_I2C_Buff[0] & 0x3FF;
+	
+	return Chan;
+	
+}
+
+uint16_t RDA5807m_GetRSSI()
+{
+	uint16_t RSSI;
+	memset(RDA5807m_I2C_Buff,0,sizeof(RDA5807m_I2C_Buff));
+	HAL_I2C_Master_Receive(I2C_HANDLER,(0x10 << 1),(void *)&RDA5807m_I2C_Buff, sizeof(RDA5807m_I2C_Buff),10);
+	SwapBytes(&RDA5807m_I2C_Buff[0],&RDA5807m_I2C_Buff[0]);
+	RSSI=(RDA5807m_I2C_Buff[1] & 0x7F00) >> 9;
+	return RSSI;
 }

@@ -103,9 +103,15 @@ int main(void)
 	  RDA5807m_Init();
 		HAL_Delay(1000);
 		
-		RDA5807m_SetBand(BAND_76_108);
+		RDA5807m_SetBand(BAND_65_76);
 		RDA5807m_SetStep(STEP_25);
-		RDA5807m_SetFreq(97.6);						
+		RDA5807m_SetFreq(66.44);		
+	
+		uint16_t Chan=RDA5807m_GetChan();
+		uint16_t RSSI=RDA5807m_GetRSSI();
+		
+		HAL_Delay(1000);
+
 		
 //		for(int i=0;i<=10;i++)
 //			{
